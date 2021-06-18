@@ -1,0 +1,60 @@
+#include <iostream>
+#include<ctime>
+#include<string>
+using namespace std;
+
+const int NUMBER_OF_CARDS = 52;
+
+int main()
+{
+    cout << "玩家人數" << endl;
+    int a;
+    cin >> a;
+    while (a < 2) {
+        if (a <=2) {
+            cout << "重新輸入";
+            cin >> a;
+        }
+    }
+    while (a > 8) {
+        if (a > 8) {
+            cout << "重新輸入";
+            cin >> a;
+        }
+    }
+    string suits[] = { "Spades","Hearts","Clubs","Diamonds" };
+    string numbers[] = { "Ace","2","3","4","5","6","7","8","9","10","Jack",
+                 "Queen","King" };
+    int cards[NUMBER_OF_CARDS];
+    int n;
+
+    for (int i = 0; i < NUMBER_OF_CARDS; i++) cards[i] = i;
+    n = 2;
+ 
+
+    //shuffing cards.
+    srand(time(0));
+    for (int i = 0; i < NUMBER_OF_CARDS; i++)
+    {
+        int swap_index = rand() % NUMBER_OF_CARDS;
+        int t = cards[i];
+        cards[i] = cards[swap_index];
+        cards[swap_index] = t;
+    }
+
+    //get cards
+    for (int j = 0; j < a; j++) {
+        cout << "player" << j+1 << ":" << endl;
+        for (int i = 0; i < n; i++)
+        {
+            int c = rand() % NUMBER_OF_CARDS; //card
+            int cs = c / 13;  // card suit 0,1,2,3
+            int cg = c % 13;  // card number 0,1,2,3,....,12
+
+            cout << "  " << suits[cs] << " " << numbers[cg] << endl;
+        }
+    }
+    cout << endl;
+    system("pause");
+    return 0;
+}
