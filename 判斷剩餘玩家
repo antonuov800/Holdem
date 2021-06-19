@@ -25,7 +25,8 @@ int judement::getnumber() {
 }
 int judement::getcard() {
 	return playerturn * 2 - 2;
-}#include <iostream>
+}
+#include <iostream>
 #include<ctime>
 #include<string>
 #include"judgment.h"
@@ -89,7 +90,9 @@ int main()
     for (n1; n1 < a*2+3; n1++) 
         player[n1] = cards[n1];
     //變數
-    int player2[16] = {}, player3[8], o = 0, O = 0;;
+    int player2[16] = {}, player3[8]; 
+    //判斷遊戲是否繼續
+    int o = 0, O = 0;
     cout << "按1繼續" << "按0棄牌" << endl;
     for (int i = 0; i < a; i++) 
     {
@@ -117,6 +120,10 @@ int main()
         }
 
     }
+    if (O == 1) {
+        cout << "贏家是   玩家" << player3[0];
+        return 0;
+    }
     n = 2;
     n1 = 0;
     cout << "剩餘玩家:" << endl;
@@ -130,6 +137,10 @@ int main()
             }
             n = n + 2;
     }
+    cout << "底牌1" << endl;
+    int cs = player2[a*2] / 13;  // card suit 0,1,2,3
+    int cg = player2[a*2] % 13;  // card number 0,1,2,3,....,12
+    cout << "  " << suits[cs] << " " << numbers[cg] << endl;
     cout << endl;
     system("pause");
     return 0;
