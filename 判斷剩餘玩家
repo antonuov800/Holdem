@@ -1,0 +1,136 @@
+class judement {
+public:
+	judement();
+	judement(int, int);
+	int getplayerturn();
+	int getnumber();
+	int getcard();
+private:
+	int playerturn, number;
+};
+#include"judgment.h"
+judement::judement() {
+	playerturn = 0;
+	number = 0;
+}
+judement::judement(int P, int N) {
+	playerturn = P;
+	number = N;
+}
+int judement::getplayerturn() {
+	return playerturn;
+}
+int judement::getnumber() {
+	return number;
+}
+int judement::getcard() {
+	return playerturn * 2 - 2;
+}#include <iostream>
+#include<ctime>
+#include<string>
+#include"judgment.h"
+using namespace std;
+
+const int NUMBER_OF_CARDS = 52;
+
+int main()
+{
+    cout << "玩家人數" << endl;
+    int a,b;
+    cin >> a;
+    while (a < 2) {
+        if (a <= 2) {
+            cout << "重新輸入";
+            cin >> a;
+        }
+    }
+    while (a > 8) {
+        if (a > 8) {
+            cout << "重新輸入";
+            cin >> a;
+        }
+    }
+    string suits[] = { "Spades","Hearts","Clubs","Diamonds" };
+    string numbers[] = { "Ace","2","3","4","5","6","7","8","9","10","Jack",
+                 "Queen","King" };
+    int cards[NUMBER_OF_CARDS];
+    int n, n1;
+
+    for (int i = 0; i < NUMBER_OF_CARDS; i++) cards[i] = i;
+
+
+    //shuffing cards.
+    srand(time(0));
+    for (int i = 0; i < NUMBER_OF_CARDS; i++)
+    {
+        int swap_index = rand() % NUMBER_OF_CARDS;
+        int t = cards[i];
+        cards[i] = cards[swap_index];
+        cards[swap_index] = t;
+    }
+
+    int player[19], sum = 0;
+    sum = a * 2 + 3;
+    n = 2;
+    n1 = 0;
+
+    for (int j = 0; j < a; j++) {
+        cout << "玩家" << j + 1 << endl;
+        for (n1; n1 < n; n1++) {
+            player[n1] = cards[n1];
+            int cs = cards[n1] / 13;  // card suit 0,1,2,3
+            int cg = cards[n1] % 13;  // card number 0,1,2,3,....,12
+
+            cout << "  " << suits[cs] << " " << numbers[cg] << endl;
+        }
+        n = n + 2;
+    }
+    //牌池
+    for (n1; n1 < a*2+3; n1++) 
+        player[n1] = cards[n1];
+    //變數
+    int player2[16] = {}, player3[8], o = 0, O = 0;;
+    cout << "按1繼續" << "按0棄牌" << endl;
+    for (int i = 0; i < a; i++) 
+    {
+        cout << "玩家" << i + 1 << "輸入" << endl;
+        cin >> b;
+       
+    if (b != 1 && b != 0)
+        {
+            while (b != 1 || b != 0) 
+            {
+                cout << "請重新輸入" << endl;
+                cin >> b;
+            }
+        }
+    else if (b == 1) 
+        {        
+        
+        judement Player(i + 1, b);
+        player2[o] = player[Player.getcard()];
+        o++;
+        player2[o] = player[Player.getcard()+1];
+        o++;
+        player3[O] = i+1;
+        O++;
+        }
+
+    }
+    n = 2;
+    n1 = 0;
+    cout << "剩餘玩家:" << endl;
+    for (int i = 0; i < o / 2; i++) {
+        cout << "玩家" << player3[i]<<endl;
+            for (n1; n1 < n; n1++) {
+                int cs = player2[n1] / 13;  // card suit 0,1,2,3
+                int cg = player2[n1] % 13;  // card number 0,1,2,3,....,12
+
+                cout << "  " << suits[cs] << " " << numbers[cg] << endl;
+            }
+            n = n + 2;
+    }
+    cout << endl;
+    system("pause");
+    return 0;
+}
